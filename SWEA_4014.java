@@ -1,7 +1,7 @@
 package SWEA;
 
 import java.io.*;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class SWEA_4014 {
 	private static int T;
@@ -55,38 +55,41 @@ public class SWEA_4014 {
 				int nr = m[i][j];
 				int nc = m[j][i];
 				
-				if(cr == nr) {
-					if(beginR) deR++; 
-					else inR++;
+				if(!flagR) {
+					if(cr == nr) {
+						if(beginR) deR++; 
+						else inR++;
+					}
+					else if(cr < nr) {
+						if(beginR) { if(deR < X + X|| nr - cr >= 2) flagR = true; }  
+						else { if(inR < X || nr - cr >= 2) flagR = true; } 
+						beginR = false;
+						inR = 1;
+					}
+					else {
+						if(cr - nr >= 2) flagR = true;
+						if(beginR && deR < X) flagR = true;
+						beginR = true;
+						deR = 1;
+					}
 				}
-				else if(cr < nr) {
-					if(beginR) { if(deR < X + X|| Math.abs(cr - nr) >= 2) flagR = true; }  
-					else { if(inR < X || Math.abs(cr - nr) >= 2) flagR = true; } 
-					beginR = false;
-					inR = 1;
-				}
-				else {
-					if(Math.abs(cr - nr) >= 2) flagR = true;
-					if(beginR && deR < X) flagR = true;
-					beginR = true;
-					deR = 1;
-				}
-				
-				if(cc == nc) {
-					if(beginC) deC++;
-					else inC++;
-				}
-				else if(cc < nc){
-					if(beginC) { if(deC < X + X || Math.abs(cc - nc) >= 2) flagC = true; }  
-					else { if(inC < X || Math.abs(cc - nc) >= 2) flagC = true; }
-					beginC = false;
-					inC = 1;
-				}
-				else {
-					if(Math.abs(cc - nc) >= 2) flagC = true;
-					if(beginC && deC < X) flagC = true;
-					beginC = true;
-					deC = 1;
+				if(!flagC) {	
+					if(cc == nc) {
+						if(beginC) deC++;
+						else inC++;
+					}
+					else if(cc < nc){
+						if(beginC) { if(deC < X + X || nc-cc >= 2) flagC = true; }  
+						else { if(inC < X || nc-cc >= 2) flagC = true; }
+						beginC = false;
+						inC = 1;
+					}
+					else {
+						if(cc - nc >= 2) flagC = true;
+						if(beginC && deC < X) flagC = true;
+						beginC = true;
+						deC = 1;
+					}
 				}
 				
 				cr = nr;
